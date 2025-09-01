@@ -5,11 +5,11 @@ class Question
     private $texte;
     private $idCampagne;
 
-    public function __construct($id, $texte, $idCampagne)
+    public function __construct($id, $idCampagne, $texte)
     {
         $this->id = $id;
-        $this->texte = $texte;
         $this->idCampagne = $idCampagne;
+        $this->texte = $texte;
     }
 
     public function getId()

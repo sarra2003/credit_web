@@ -97,4 +97,15 @@ class UtilisateursController
             die('Erreur: ' . $e->getMessage());
         }
     }
+    public function getUsersByRole($role)
+    {
+        try {
+            $db = config::getConnexion();
+            $query = $db->prepare('SELECT * FROM utilisateurs WHERE role = :role');
+            $query->execute(['role' => $role]);
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            die('Erreur: ' . $e->getMessage());
+        }
+    }
 }    

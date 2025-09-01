@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../../config.php';
-require_once __DIR__ . '/../../Model/questions.php';
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../Model/questions.php';
 
 class QuestionsController
 {
@@ -63,14 +63,13 @@ class QuestionsController
         }
     }
 
-    public function recupererQuestion($id)
+    public function getQuestionsByCampagne($id_campagne)
     {
         try {
             $db = config::getConnexion();
-            $query = $db->prepare('SELECT * FROM questions WHERE id = :id');
-            $query->execute(['id' => $id]);
-            $question = $query->fetch(PDO::FETCH_OBJ);
-            return $question;
+            $query = $db->prepare('SELECT * FROM questions WHERE id_campagne = :id_campagne');
+            $query->execute(['id_campagne' => $id_campagne]);
+            return $query->fetchAll(PDO::FETCH_OBJ);
         } catch (Exception $e) {
             die('Erreur: ' . $e->getMessage());
         }

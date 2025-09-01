@@ -20,10 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit;
             } else {
                 if ($user['role'] === 'agent') {
-                    header('Location: agent_dashboard.php');
+                    header('Location: ../View/FrontOffice/agent_dashboard.php');
                     exit;
                 } elseif ($user['role'] === 'client') {
-                    header('Location: client_dashboard.php');
+                    header('Location: ../View/FrontOffice/client_dashboard.php');
                     exit;
                 }
             }
