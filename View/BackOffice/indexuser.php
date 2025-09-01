@@ -19,6 +19,7 @@ $utilisateurs = $controller->afficherUtilisateurs();
     <div class="sidebar">
         <h3>Back Office</h3>
         <a href="indexuser.php">Utilisateurs</a>
+        <a href="indexcampagne.php">Campagnes</a>
         <a href="#">Tableau de bord</a>
         <a href="#">Paramètres</a>
         <a href="#">Déconnexion</a>

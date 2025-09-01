@@ -65,3 +65,26 @@ window.closeModifierPopup = function () {
             });
         });
 });
+
+ function openModifierCampagnePopup(id, nom, description) {
+            document.getElementById('modifier_campagne_id').value = id;
+            document.getElementById('modifier_campagne_nom').value = nom;
+            document.getElementById('modifier_campagne_description').value = description;
+            document.getElementById('modifierCampagnePopup').style.display = 'block';
+        }
+        function closeModifierCampagnePopup() {
+            document.getElementById('modifierCampagnePopup').style.display = 'none';
+        }
+        function validateCampagneForm() {
+            var nom = document.forms['ajoutCampagne']['nom'].value;
+            var description = document.forms['ajoutCampagne']['description'].value;
+            if (!nom) {
+                alert('Veuillez remplir le nom de la campagne.');
+                return false;
+            }
+            if (!description) {
+                alert('Veuillez remplir la description de la campagne.');
+                return false;
+            }
+            return true;
+        }

@@ -1,37 +1,3 @@
-<?php
-session_start();
-require_once __DIR__ . '/../config.php'; // Adjust path as needed
-require_once __DIR__ . '/../Controller/utilisateursController.php'; // Corrected filename
-
-$error = '';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'] ?? '';
-    $password = $_POST['password'] ?? '';
-
-    try {
-        $controller = new UtilisateursController();
-        $user = $controller->authenticate($email, $password);
-
-        if ($user && isset($user['id']) && isset($user['role'])) {
-            $_SESSION['id'] = $user['id'];
-
-            if ($user['role'] === 'admin') {
-                header('Location: /gestiondenquete/View/BackOfiice/indexuser.php');
-                exit;
-            } else {
-                header('Location: /gestiondenquete/View/user_dashboard.php');
-                exit;
-            }
-        } else {
-            $error = "Invalid email or password.";
-        }
-    } catch (Exception $e) {
-        $error = "An error occurred during login. Please try again.";
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,10 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="container">
         <h2>Login</h2>
-        <?php if ($error): ?>
-            <div class="error"><?php echo htmlspecialchars($error); ?></div>
+        <?php if (isset($_GET['error'])): ?>
+            <div class="error"><?php echo htmlspecialchars($_GET['error']); ?></div>
         <?php endif; ?>
-        <form method="post" action="login.php">
+        <form method="post" action="loginto.php">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
 
