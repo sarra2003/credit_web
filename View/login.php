@@ -15,9 +15,11 @@
 <body>
     <div class="container">
         <h2>Login</h2>
-        <?php if (isset($_GET['error'])): ?>
-            <div class="error"><?php echo htmlspecialchars($_GET['error']); ?></div>
-        <?php endif; ?>
+        <?php
+        if (isset($_GET['error']) && !empty($_GET['error'])) {
+            echo '<div class="error">' . htmlspecialchars($_GET['error']) . '</div>';
+        }
+        ?>
         <form method="post" action="loginto.php">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>

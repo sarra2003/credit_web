@@ -74,4 +74,5 @@ class QuestionsController
             die('Erreur: ' . $e->getMessage());
         }
     }
+    
 }

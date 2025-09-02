@@ -14,9 +14,9 @@ class campagnes_clientsController
 
     public function afficherCampagnesByUtilisateur($id_utilisateur){
         $db = config::getConnexion();
-        $sql = "SELECT campagne.* 
-            FROM campagne 
-            INNER JOIN campagnes_clients ON campagne.id_campagne = campagnes_clients.id_campagne 
+        $sql = "SELECT campagnes.* 
+            FROM campagnes
+            INNER JOIN campagnes_clients ON campagnes.id = campagnes_clients.id_campagne 
             WHERE campagnes_clients.id_utilisateur = :id_utilisateur";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':id_utilisateur', $id_utilisateur);

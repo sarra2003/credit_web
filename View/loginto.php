@@ -1,5 +1,7 @@
 <?php
 session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../Controller/utilisateursController.php';
@@ -18,14 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($user['role'] === 'admin') {
                 header('Location: BackOffice/indexuser.php');
                 exit;
+            } elseif ($user['role'] === 'agent') {
+                header('Location: ../View/FrontOffice/agent_dashboard.php');
+                exit;
+            } elseif ($user['role'] === 'client') {
+                header('Location: ../View/FrontOffice/client_dashboard.php');
+                exit;
             } else {
-                if ($user['role'] === 'agent') {
-                    header('Location: ../View/FrontOffice/agent_dashboard.php');
-                    exit;
-                } elseif ($user['role'] === 'client') {
-                    header('Location: ../View/FrontOffice/client_dashboard.php');
-                    exit;
-                }
+                // Unknown role, redirect with error
+                header('Location: login.php?error=Unknown+user+role');
+                exit;
             }
         } else {
             // Redirect to login.php with error message

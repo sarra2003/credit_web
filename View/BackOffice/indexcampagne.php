@@ -22,7 +22,7 @@ $campagnes = $controller->afficherCampagnes();
         <a href="indexcampagne.php">Campagnes</a>
         <a href="#">Tableau de bord</a>
         <a href="#">Paramètres</a>
-        <a href="#">Déconnexion</a>
+        <a href="../login.php">Déconnexion</a>
     </div>
     <div class="container">
         <h2>Liste des Campagnes</h2>

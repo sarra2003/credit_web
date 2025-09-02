@@ -1,22 +1,21 @@
 <?php
 require_once __DIR__ . '/../config.php';
-require_once __DIR__ . '/../../Model/reponses.php';
+require_once __DIR__ . '/../Model/reponses.php';
 
-class ReponsesController
+class reponsesController
 {
     public function ajouterReponse($reponse)
     {
         try {
             $db = config::getConnexion();
             $query = $db->prepare(
-                'INSERT INTO reponses (id_question, id_utilisateur, contenu, date_reponse) 
-                VALUES (:id_question, :id_utilisateur, :contenu, :date_reponse)'
+                'INSERT INTO reponses (id_question, id_utilisateur, texte) 
+                VALUES (:id_question, :id_utilisateur, :texte)'
             );
             $query->execute([
                 'id_question' => $reponse->getIdQuestion(),
                 'id_utilisateur' => $reponse->getIdUtilisateur(),
-                'contenu' => $reponse->getContenu(),
-                'date_reponse' => $reponse->getDateReponse()
+                'texte' => $reponse->getTexte()
             ]);
         } catch (Exception $e) {
             die('Erreur: ' . $e->getMessage());
@@ -54,19 +53,13 @@ class ReponsesController
         try {
             $db = config::getConnexion();
             $query = $db->prepare(
-                'UPDATE reponses SET 
-                    id_question = :id_question, 
-                    id_utilisateur = :id_utilisateur, 
-                    contenu = :contenu, 
-                    date_reponse = :date_reponse 
-                WHERE id = :id'
+            'UPDATE reponses SET 
+                texte = :texte 
+            WHERE id = :id'
             );
             $query->execute([
-                'id_question' => $reponse->getIdQuestion(),
-                'id_utilisateur' => $reponse->getIdUtilisateur(),
-                'contenu' => $reponse->getContenu(),
-                'date_reponse' => $reponse->getDateReponse(),
-                'id' => $id
+            'texte' => $reponse->getTexte(),
+            'id' => $id
             ]);
         } catch (Exception $e) {
             die('Erreur: ' . $e->getMessage());
@@ -80,6 +73,17 @@ class ReponsesController
             $query = $db->prepare('SELECT * FROM reponses WHERE id = :id');
             $query->execute(['id' => $id]);
             return $query->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            die('Erreur: ' . $e->getMessage());
+        }
+    }
+    public function getReponsesByUtilisateurAndquestion($userId, $questionId)
+    {
+        try {
+            $db = config::getConnexion();
+            $query = $db->prepare('SELECT * FROM reponses WHERE id_utilisateur = :id_utilisateur AND id_question = :id_question');
+            $query->execute(['id_utilisateur' => $userId, 'id_question' => $questionId]);
+            return $query->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
             die('Erreur: ' . $e->getMessage());
         }
